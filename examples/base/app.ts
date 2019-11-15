@@ -17,9 +17,9 @@ import axios from '../../src/index'
 //     }
 //   }
 // })
-//
+
 // const date = new Date()
-//
+
 // axios({
 //   method: 'get',
 //   url: '/base/get',
@@ -61,26 +61,26 @@ import axios from '../../src/index'
 //   }
 // })
 //
-// axios({
-//   method: 'post',
-//   url: '/base/post',
-//   data: {
-//     a: 1,
-//     b: 2
-//   }
-// })
+axios({
+  method: 'post',
+  url: '/base/post',
+  data: {
+    a: 1,
+    b: 2
+  }
+})
 //
-// axios({
-//   method: 'post',
-//   url: '/base/post',
-//   headers: {
-//     'content-type': 'application/json;charset=utf-8'
-//   },
-//   data: {
-//     a: 1,
-//     b: 2
-//   }
-// })
+axios({
+  method: 'post',
+  url: '/base/post',
+  headers: {
+    'content-type': 'application/json;charset=utf-8'
+  },
+  data: {
+    a: 1,
+    b: 2
+  }
+})
 //
 // const arr = new Int32Array([21, 31])
 //
@@ -100,16 +100,16 @@ import axios from '../../src/index'
 //   data: searchParams
 // })
 
-axios({
-  method: 'post',
-  url: '/base/post',
-  data: {
-    a: 1,
-    b: 2
-  }
-}).then((res) => {
-  console.log(res)
-})
+// axios({
+//   method: 'post',
+//   url: '/base/post',
+//   data: {
+//     a: 1,
+//     b: 2
+//   }
+// }).then((res) => {
+//   console.log(res)
+// })
 
 axios({
   method: 'post',
@@ -119,6 +119,6 @@ axios({
     a: 3,
     b: 4
   }
-}).then((res) => {
+}).then(res => {
   console.log(res)
 })

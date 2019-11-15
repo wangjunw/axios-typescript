@@ -1,4 +1,4 @@
-// url拼接
+// url拼接params
 import { isDate, isObject, encode } from './util'
 export function buildURL(url: string, params: any): string {
   if (!params) {
@@ -20,7 +20,7 @@ export function buildURL(url: string, params: any): string {
     }
     values.forEach(val => {
       if (isDate(val)) {
-        val = val.toISOString
+        val = val.toISOString()
       } else if (isObject(val)) {
         val = JSON.stringify(val)
       }

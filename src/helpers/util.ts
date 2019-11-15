@@ -3,8 +3,13 @@ const toString = Object.prototype.toString
 export function isDate(val: any): val is Date {
   return toString.call(val) === '[object Date]'
 }
+// 判断是不是一个object类型
 export function isObject(val: any): val is Object {
   return val !== null && typeof val === 'object'
+}
+// 判断是不是一个普通对象
+export function isPlainObject(val: any): val is Object {
+  return toString.call(val) === '[object Object]'
 }
 // 编码转换，还需要把一些特殊字符再转回去
 export function encode(val: string): string {
