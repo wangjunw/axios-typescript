@@ -22,3 +22,23 @@ export const processHeaders = (headers: any, data: any): any => {
   }
   return headers
 }
+
+// 转换响应headers为json，因为headers是以换行符分隔的字符串
+export const parseHeaders = (headers: string): any => {
+  let headersObj = Object.create(null)
+  if (!headers) {
+    return headersObj
+  }
+  headers.split('\r\n').forEach(line => {
+    let [key, val] = line.split(':')
+    key = key.trim().toLowerCase()
+    if (!key) {
+      return
+    }
+    if (val) {
+      val = val.trim()
+    }
+    headersObj[key] = val
+  })
+  return headersObj
+}
