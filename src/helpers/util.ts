@@ -22,3 +22,12 @@ export function encode(val: string): string {
     .replace(/%5b/gi, '[')
     .replace(/%5d/gi, ']')
 }
+
+// 混合
+export function extend<T, U>(to: T, from: U): T & U {
+  // from合并到to
+  for (const key in from) {
+    ;(to as T & U)[key] = from[key] as any
+  }
+  return to as T & U
+}

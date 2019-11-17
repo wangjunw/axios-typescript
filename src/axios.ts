@@ -1,30 +1,12 @@
-import { AxiosRequestConfig, AxiosPromise } from './types'
-import xhr from './xhr'
-import { buildURL } from './helpers/url'
-import { transformRequest } from './helpers/data'
-import { processHeaders } from './helpers/headers'
-function axios(config: AxiosRequestConfig): AxiosPromise {
-  processConfig(config)
-  return xhr(config)
+import { AxiosInstance } from './types'
+import Axios from './core/Axios'
+import { extend } from './helpers/util'
+// 把axios编程混合对象
+function createInstance(): AxiosInstance {
+  const context = new Axios()
+  const instance = Axios.prototype.request.bind(context)
+  extend(instance, context)
+  return instance as AxiosInstance
 }
-// 处理config参数
-function processConfig(config: AxiosRequestConfig): void {
-  config.url = transformURL(config)
-  config.headers = transformHeaders(config)
-  config.data = transformRequestData(config)
-}
-// 处理url
-function transformURL(config: AxiosRequestConfig): string {
-  const { url, params } = config
-  return buildURL(url, params)
-}
-// 处理data
-function transformRequestData(config: AxiosRequestConfig): any {
-  return transformRequest(config.data)
-}
-// 处理headers
-function transformHeaders(config: AxiosRequestConfig): any {
-  const { headers = {}, data } = config
-  return processHeaders(headers, data)
-}
+const axios = createInstance()
 export default axios

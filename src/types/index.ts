@@ -16,7 +16,7 @@ export type Method =
   | 'PATCH'
 // 调用axios传入的参数必须符合该接口
 export interface AxiosRequestConfig {
-  url: string
+  url?: string
   method?: Method
   data?: any
   params?: any
@@ -26,8 +26,8 @@ export interface AxiosRequestConfig {
 }
 
 // 返回类型
-export interface AxiosResponse {
-  data: any
+export interface AxiosResponse<T = any> {
+  data: T
   status: number
   statusText: string
   headers: any
@@ -35,7 +35,7 @@ export interface AxiosResponse {
   request: any
 }
 
-export interface AxiosPromise extends Promise<AxiosResponse> {}
+export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {}
 
 // 错误类型接口
 export interface AxiosError extends Error {
@@ -44,4 +44,23 @@ export interface AxiosError extends Error {
   code?: string | null
   request?: any
   response?: AxiosResponse
+}
+
+// axios的接口类型，通过泛型<T>可以实现调用时传入想要获取到的数据类型
+export interface Axios {
+  request<T>(config: AxiosRequestConfig): AxiosPromise<T>
+  get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  delete<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  head<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  options<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+  post<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  put<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  patch<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+}
+
+// 混合对象的类型
+export interface AxiosInstance extends Axios {
+  // 函数重载，参数不同
+  <T>(config: AxiosRequestConfig): AxiosPromise<T>
+  <T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 }
