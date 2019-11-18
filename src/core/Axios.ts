@@ -18,12 +18,14 @@ interface PromiseChain<T> {
   rejected?: RejectedFn
 }
 export default class Axios {
+  defaults: AxiosRequestConfig
   interceptors: Interceptors
   /**
    * 当用户调用axios.interceptors.request.use则调用请求拦截器
    * axios.interceptors.response.use则调用响应拦截器
    */
-  constructor() {
+  constructor(initConfig: AxiosRequestConfig) {
+    this.defaults = initConfig
     this.interceptors = {
       request: new InterceptorManager<AxiosRequestConfig>(),
       response: new InterceptorManager<AxiosResponse>()
