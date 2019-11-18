@@ -34,6 +34,6 @@ axios({
   headers: {
     test: ''
   }
-}).then((res) => {
+}).then(res => {
   console.log(res.data)
 })

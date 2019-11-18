@@ -48,6 +48,10 @@ export interface AxiosError extends Error {
 
 // axios的接口类型，通过泛型<T>可以实现调用时传入想要获取到的数据类型
 export interface Axios {
+  interceptors: {
+    request: AxiosInterceptorManager<AxiosRequestConfig>
+    response: AxiosInterceptorManager<AxiosResponse>
+  }
   request<T>(config: AxiosRequestConfig): AxiosPromise<T>
   get<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
   delete<T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
@@ -63,4 +67,16 @@ export interface AxiosInstance extends Axios {
   // 函数重载，参数不同
   <T>(config: AxiosRequestConfig): AxiosPromise<T>
   <T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
+}
+
+// 拦截器接口类型
+export interface AxiosInterceptorManager<T> {
+  use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
+  eject(id: number): void
+}
+export interface ResolvedFn<T> {
+  (val: T): T | Promise<T>
+}
+export interface RejectedFn {
+  (error: any): any
 }
