@@ -31,3 +31,27 @@ export function extend<T, U>(to: T, from: U): T & U {
   }
   return to as T & U
 }
+
+// 深拷贝，参数个数不一定
+export function deepCopy(...objs: any[]): any {
+  const result = Object.create(null)
+  objs.forEach(obj => {
+    if (obj) {
+      Object.keys(obj).forEach(key => {
+        const val = obj[key]
+        // 如果值是普通对象，递归
+        if (isPlainObject(val)) {
+          // 已有的属性也是普通对象
+          if (isPlainObject(result[key])) {
+            result[key] = deepCopy(result[key], val)
+          } else {
+            result[key] = deepCopy(val)
+          }
+        } else {
+          result[key] = val
+        }
+      })
+    }
+  })
+  return result
+}

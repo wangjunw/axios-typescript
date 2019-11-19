@@ -1,4 +1,5 @@
-import { isPlainObject } from './util'
+import { isPlainObject, deepCopy } from './util'
+import { Method } from '../types'
 // 兼容headers中属性大小写
 function normalizeHeaderName(headers: any, normalizeName: string): any {
   if (!headers) {
@@ -41,4 +42,20 @@ export const parseHeaders = (headers: string): any => {
     headersObj[key] = val
   })
   return headersObj
+}
+
+export function flattenHeaders(headers: any, method: Method): any {
+  if (!headers) {
+    return headers
+  }
+  // 把common和methed合并到同一级，headers身上
+  headers = deepCopy(headers.common, headers[method], headers)
+
+  // 定义合并之后要删掉的属性
+  const deleteKeys = ['delete', 'get', 'head', 'options', 'post', 'put', 'patch', 'common']
+
+  deleteKeys.forEach(key => {
+    delete headers[key]
+  })
+  return headers
 }
