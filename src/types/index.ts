@@ -14,6 +14,10 @@ export type Method =
   | 'PUT'
   | 'patch'
   | 'PATCH'
+
+export interface AxiosTransformer {
+  (data: any, headers?: any): any
+}
 // 调用axios传入的参数必须符合该接口
 export interface AxiosRequestConfig {
   url?: string
@@ -23,7 +27,8 @@ export interface AxiosRequestConfig {
   headers?: any
   responseType?: XMLHttpRequestResponseType
   timeout?: number
-
+  transformRequest?: AxiosTransformer | AxiosTransformer[]
+  transformResponse?: AxiosTransformer | AxiosTransformer[]
   [propName: string]: any
 }
 

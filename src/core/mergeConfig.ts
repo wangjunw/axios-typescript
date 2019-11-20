@@ -22,13 +22,13 @@ function deepStrat(val1: any, val2: any): any {
     return val2
   } else if (isPlainObject(val1)) {
     return deepCopy(val1)
-  } else if (typeof val1 !== 'undefined') {
+  } else {
     return val1
   }
 }
 
 // 如果是以下属性，使用fromVal2Strat策略
-const stratKeysFromVal2 = ['url', 'params', 'data']
+const stratKeysFromVal2 = ['url', 'params', 'data', 'timeout']
 stratKeysFromVal2.forEach(key => {
   strats[key] = fromVal2Strat
 })
@@ -53,7 +53,7 @@ export default function mergeConfig(
     mergeField(key)
   }
   // config2中没有的，合并config1
-  for (let key in config) {
+  for (let key in config1) {
     if (!config2[key]) {
       mergeField(key)
     }

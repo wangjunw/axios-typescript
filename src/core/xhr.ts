@@ -16,7 +16,6 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     request.open(method.toUpperCase(), url!, true)
-
     Object.keys(headers).forEach(name => {
       // 既没有data也没有content-type，删除content-type。否则设置headers
       if (data === null && name.toLowerCase() === 'content-type') {
