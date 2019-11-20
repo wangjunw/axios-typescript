@@ -77,6 +77,11 @@ export interface AxiosInstance extends Axios {
   <T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
+// axios静态方法
+export interface AxiosStatic extends AxiosInstance {
+  create(config?: AxiosRequestConfig): AxiosInstance
+}
+
 // 拦截器接口类型
 export interface AxiosInterceptorManager<T> {
   use(resolved: ResolvedFn<T>, rejected?: RejectedFn): number
