@@ -29,6 +29,7 @@ export interface AxiosRequestConfig {
   timeout?: number
   transformRequest?: AxiosTransformer | AxiosTransformer[]
   transformResponse?: AxiosTransformer | AxiosTransformer[]
+  cancelToken?: CancelToken
   [propName: string]: any
 }
 
@@ -80,6 +81,9 @@ export interface AxiosInstance extends Axios {
 // axios静态方法
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
+  CancelToken: CancelTokenStatic
+  Cancel: CancelStatic
+  isCancel: (val: any) => boolean
 }
 
 // 拦截器接口类型
@@ -92,4 +96,41 @@ export interface ResolvedFn<T> {
 }
 export interface RejectedFn {
   (error: any): any
+}
+
+/**
+ * 取消相关接口
+ */
+
+// CancelToken的实例类型
+export interface CancelToken {
+  promise: Promise<Cancel>
+  reason?: Cancel
+  throwIfRequested(): void
+}
+
+export interface Canceler {
+  (message?: string): void
+}
+
+export interface CancelExecutor {
+  (cancel: Canceler): void
+}
+
+export interface CancelTokenSource {
+  token: CancelToken
+  cancel: Canceler
+}
+
+// CancelToken的类类型
+export interface CancelTokenStatic {
+  new (executor: CancelExecutor): CancelToken
+  source(): CancelTokenSource
+}
+export interface Cancel {
+  message?: string
+}
+// Cancel类的类类型
+export interface CancelStatic {
+  new (message?: string): Cancel
 }
