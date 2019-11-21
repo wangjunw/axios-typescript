@@ -11,26 +11,26 @@ document.cookie = 'a=b'
 //   console.log(res)
 // })
 //
-axios
-  .post(
-    'http://localhost:7777/more/server2',
-    {},
-    {
-      withCredentials: true
-    }
-  )
-  .then(res => {
-    console.log(res)
-  })
+// axios
+//   .post(
+//     'http://localhost:7777/more/server2',
+//     {},
+//     {
+//       withCredentials: true
+//     }
+//   )
+//   .then(res => {
+//     console.log(res)
+//   })
 //
-// // const instance = axios.create({
-// //   xsrfCookieName: 'XSRF-TOKEN-D',
-// //   xsrfHeaderName: 'X-XSRF-TOKEN-D'
-// // })
-// //
-// // instance.get('/more/get').then(res => {
-// //   console.log(res)
-// // })
+const instance = axios.create({
+  xsrfCookieName: 'XSRF-TOKEN-D',
+  xsrfHeaderName: 'X-XSRF-TOKEN-D'
+})
+
+instance.get('/more/get').then(res => {
+  console.log(res)
+})
 // const instance = axios.create()
 //
 // function calculatePercentage(loaded: number, total: number) {

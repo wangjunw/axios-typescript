@@ -31,6 +31,8 @@ export interface AxiosRequestConfig {
   transformResponse?: AxiosTransformer | AxiosTransformer[]
   cancelToken?: CancelToken
   withCredentials?: boolean
+  xsrfCookieName?: string
+  xsrfHeaderName?: string
   [propName: string]: any
 }
 
@@ -70,6 +72,7 @@ export interface Axios {
   post<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   put<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   patch<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  getUrl(config?: AxiosRequestConfig): string
 }
 
 // 混合对象的类型
@@ -79,12 +82,19 @@ export interface AxiosInstance extends Axios {
   <T>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
+export interface AxiosClassStatic {
+  new (config: AxiosRequestConfig): Axios
+}
+
 // axios静态方法
 export interface AxiosStatic extends AxiosInstance {
   create(config?: AxiosRequestConfig): AxiosInstance
   CancelToken: CancelTokenStatic
   Cancel: CancelStatic
   isCancel: (val: any) => boolean
+  all<T>(promises: Array<T | Promise<T>>): Promise<T[]>
+  spread<T, R>(callback: (...args: T[]) => R): (arr: T[]) => R
+  Axios: AxiosClassStatic
 }
 
 // 拦截器接口类型

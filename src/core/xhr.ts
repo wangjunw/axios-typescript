@@ -1,6 +1,8 @@
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parseHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
+import { isUrlSameOrigin } from '../helpers/url'
+import cookie from '../helpers/cookie'
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
     const {
@@ -11,7 +13,9 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       responseType,
       timeout,
       cancelToken,
-      withCredentials
+      withCredentials,
+      xsrfCookieName,
+      xsrfHeaderName
     } = config
     const request = new XMLHttpRequest()
 
@@ -29,6 +33,14 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       request.withCredentials = withCredentials
     }
     request.open(method.toUpperCase(), url!, true)
+
+    if ((withCredentials || isUrlSameOrigin(url!)) && xsrfCookieName) {
+      const xsrfValue = cookie.read(xsrfCookieName)
+      if (xsrfValue && xsrfHeaderName) {
+        headers[xsrfHeaderName] = xsrfValue
+      }
+    }
+
     Object.keys(headers).forEach(name => {
       // 既没有data也没有content-type，删除content-type。否则设置headers
       if (data === null && name.toLowerCase() === 'content-type') {
