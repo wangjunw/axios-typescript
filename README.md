@@ -9,7 +9,9 @@ npm run build
 ```
 
 #### 发布
+首先要有自己npm账号，然后在终端登陆后才可以发布
 ```
+npm login
 npm publish
 ```
 
