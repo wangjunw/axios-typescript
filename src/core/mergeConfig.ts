@@ -34,7 +34,7 @@ stratKeysFromVal2.forEach(key => {
 })
 
 // 以下使用深拷贝策略
-const stratKeysDeepMerge = ['headers']
+const stratKeysDeepMerge = ['headers', 'auth']
 stratKeysDeepMerge.forEach(key => {
   strats[key] = deepStrat
 })

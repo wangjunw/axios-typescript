@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const multipart = require('connect-multiparty')
+// 解密base64
 const atob = require('atob')
 const webpack = require('webpack')
 const webpackDevMiddleware = require('webpack-dev-middleware')
@@ -203,6 +204,7 @@ function registerMoreRouter() {
 
   router.post('/more/post', function(req, res) {
     const auth = req.headers.authorization
+    console.log(auth)
     const [type, credentials] = auth.split(' ')
     console.log(atob(credentials))
     const [username, password] = atob(credentials).split(':')

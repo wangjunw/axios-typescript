@@ -18,7 +18,9 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       xsrfCookieName,
       xsrfHeaderName,
       onDownloadProgress,
-      onUploadProgress
+      onUploadProgress,
+      auth,
+      validateStatus
     } = config
     const request = new XMLHttpRequest()
 
@@ -94,19 +96,23 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
           headers[xsrfHeaderName] = xsrfValue
         }
       }
-
+      // 如果数据是FormData类型，删除Content-Type
+      if (isFormData(data)) {
+        delete headers['Content-Type']
+      }
+      if (auth) {
+        // btoa创建base-64编码的字符串
+        headers['authorization'] = 'Basic ' + btoa(auth.username + ':' + auth.password)
+      }
       Object.keys(headers).forEach(name => {
         // 既没有data也没有content-type，删除content-type。否则设置headers
         if (data === null && name.toLowerCase() === 'content-type') {
           delete headers[name]
         } else {
+          // 设置所有headers
           request.setRequestHeader(name, headers[name])
         }
       })
-      // 如果数据是FormData类型，删除Content-Type
-      if (isFormData(data)) {
-        delete headers['Content-Type']
-      }
     }
 
     // 取消处理
@@ -122,7 +128,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     // 状态码错误
     function handleResponse(response: AxiosResponse): void {
-      if (response.status >= 200 && response.status <= 300) {
+      if (!validateStatus || validateStatus(response.status)) {
         resolve(response)
       } else {
         reject(
