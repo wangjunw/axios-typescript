@@ -56,6 +56,17 @@ export function buildURL(
   return url
 }
 
+// 判断url是不是绝对地址
+export function isAbsoluteUrl(url: string): boolean {
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+// 拼接baseurl和相对url
+export function combineUrl(baseUrl: string, relativeUrl?: string): string {
+  // baseurl后面的/去掉，相对url前面的/也去掉，再做拼接
+  return relativeUrl ? baseUrl.replace(/\/+$/, '') + '/' + relativeUrl.replace(/^\/+/, '') : baseUrl
+}
+
 export function isUrlSameOrigin(requestUrl: string): boolean {
   const parseOrigin = resolveURL(requestUrl)
   return parseOrigin.protocol === currentOrigin.protocol && parseOrigin.host === currentOrigin.host
