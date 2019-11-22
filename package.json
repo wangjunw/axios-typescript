@@ -1,6 +1,6 @@
 {
-  "name": "axios-typescript",
-  "version": "0.0.0",
+  "name": "axios-typescript-jun",
+  "version": "0.0.1",
   "description": "",
   "keywords": [],
   "main": "dist/axios-typescript.umd.js",
@@ -9,10 +9,10 @@
   "files": [
     "dist"
   ],
-  "author": "'jw' <'junweiwang@uqiauto.com'>",
+  "author": "'jw' <'1157593964@qq.com'>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/wangjunw/axios-typescript"
   },
   "license": "MIT",
   "engines": {
@@ -33,7 +33,9 @@
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once"
+    "travis-deploy-once": "travis-deploy-once",
+    "prepub": "npm run build",
+    "pub": "sh release.sh"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [

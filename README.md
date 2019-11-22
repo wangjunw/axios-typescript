@@ -7,3 +7,11 @@
 ```
 npm run build
 ```
+
+#### 发布
+```
+npm publish
+```
+
+#### 打包并发布脚本执行
+执行`npm run pub`，会先执行`npm run prepub`
