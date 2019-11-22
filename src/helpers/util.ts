@@ -56,6 +56,12 @@ export function deepCopy(...objs: any[]): any {
   return result
 }
 
+// 判断是不是formData类型数据
 export function isFormData(val: any): val is FormData {
   return typeof val !== 'undefined' && val instanceof FormData
+}
+
+// 判断参数是不是URLSearchParams类型
+export function isURLSearchParams(val: any): val is URLSearchParams {
+  return typeof val !== 'undefined' && val instanceof URLSearchParams
 }
