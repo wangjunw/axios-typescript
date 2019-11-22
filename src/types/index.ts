@@ -78,7 +78,7 @@ export interface Axios {
   post<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   put<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
   patch<T>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
-  getUrl(config?: AxiosRequestConfig): string
+  getUri(config?: AxiosRequestConfig): string
 }
 
 // 混合对象的类型

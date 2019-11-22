@@ -25,7 +25,7 @@ function processConfig(config: AxiosRequestConfig): void {
   config.headers = flattenHeaders(config.headers, config.method!)
 }
 // 处理url
-function transformURL(config: AxiosRequestConfig): string {
+export function transformURL(config: AxiosRequestConfig): string {
   let { url, params, paramsSerializer, baseUrl } = config
   // 如果配置了baseurl并且url不是绝对地址
   if (baseUrl && !isAbsoluteUrl(url!)) {

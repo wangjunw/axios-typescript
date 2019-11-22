@@ -31,4 +31,5 @@ axios.spread = function spread(callback) {
     return callback.apply(null, arr)
   }
 }
+axios.Axios = Axios
 export default axios
