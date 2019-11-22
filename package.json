@@ -1,6 +1,6 @@
 {
   "name": "axios-typescript-jun",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "keywords": [],
   "main": "dist/axios-typescript.umd.js",
@@ -9,7 +9,7 @@
   "files": [
     "dist"
   ],
-  "author": "'jw' <'1157593964@qq.com'>",
+  "author": "'wangjunw' <'1157593964@qq.com'>",
   "repository": {
     "type": "git",
     "url": "https://github.com/wangjunw/axios-typescript"
